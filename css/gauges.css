@@ -618,7 +618,7 @@ span.overflow {
 	background-image:url("./assets/bar_we-b7bf98937443a42e13912c2611365b24.png")
 }
 #sites div.site.current {
-	background-image:url("./assets/pink-d223fd6c4116532b5ee30e4e120185f1.jpg");
+	background-image:url("./assets/stone-d223fd6c4116532b5ee30e4e120185f1.png");
 	text-shadow:#fff 0 1px 0;
 	-webkit-box-shadow:rgba(0,0,0,0.8) 0 1px 3px,rgba(0,0,0,0.65) 0 0 0 1px,inset rgba(255,255,255,0.25) 0 1px 0,inset rgba(0,0,0,0.1) 0 -1px 0;
 	-moz-box-shadow:rgba(0,0,0,0.8) 0 1px 3px,rgba(0,0,0,0.65) 0 0 0 1px,inset rgba(255,255,255,0.25) 0 1px 0,inset rgba(0,0,0,0.1) 0 -1px 0;
@@ -710,7 +710,7 @@ div.deleted:before {
 	top:-5px;
 	width:10px;
 	height:70px;
-	background:url("./assets/pink-d223fd6c4116532b5ee30e4e120185f1.jpg")
+	background:url("./assets/stone-d223fd6c4116532b5ee30e4e120185f1.png")
 }
 #sites.meld div.site.current:after {
 	content:'';
@@ -736,7 +736,7 @@ div.deleted:before {
 	bottom:-5px;
 	width:5px;
 	height:6px;
-	background:url("./assets/pink-d223fd6c4116532b5ee30e4e120185f1.jpg")
+	background:url("./assets/stone-d223fd6c4116532b5ee30e4e120185f1.png")
 }
 #sites.meld div.site.current h2:after {
 	content:'';
@@ -803,7 +803,7 @@ a.back {
 	bottom:0;
 	width:125px;
 	padding:0 15px;
-	background:url("./assets/pink-d223fd6c4116532b5ee30e4e120185f1.jpg");
+	background:url("./assets/stone-d223fd6c4116532b5ee30e4e120185f1.png");
 	-webkit-border-top-left-radius:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-top-left-radius:5px;

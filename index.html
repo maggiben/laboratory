@@ -2,15 +2,257 @@
 <!-- saved from url=(0103)https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/technology/browser_support/2012-11-19 -->
 <html lang="en" class="no-js live"><!--<![endif]-->
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>jQuery content selection from list.</title>
-        <script src="js/jquery-1.8.2.js"></script>
-        <script src="js/jquery-ui.js"></script>
-    
-        <script type="text/javascript" src="js/slimScroll.js"></script>
-        <script type="text/javascript" src="js/jquery.endless-scroll.js"></script>
-        <script type="text/javascript" src="js/jquery.lionbars.0.3.js"></script>
-        <script type="text/javascript" src="js/jquery.screw.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />        
+        <meta charset="utf-8">
+        <meta property="og:title"  name="title" content="laboratory">
+        <meta property="og:url" content="http://html5.laboratory.com/">
+        <meta property="og:image" content="http://laboratory.com/workspace/widget/100.png">
+        <meta property="og:site_name" content="laboratory">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="website">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">        
+        <!-- INCLUDE SCRIPTS -->    
+        <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/slimScroll.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.endless-scroll.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.lionbars.0.3.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.screw.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/ICanHaz.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/sammy.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/modernizr.js"></script>
+        
+        <!-- jQuery Masonry -->
+        
+        <!-- DEV VERSION -->
+        <!--
+        
+        Notes:
+        vimeo tuts on node: http://vimeo.com/52691590
+        
+        -->
+        <!-- INCLUDE SCRIPTS / -->
+        
+        <!-- USER SCRIPTS -->
+        <script type="text/javascript">
+            // when the dom's ready
+            $(document).ready(function () {
+                // add a simple click handler for the "add user" button.
+                //$('#add_user').click(function () {
+                    var user_data, user;
+                    // build a simple user object, in a real app this 
+                    // would probably come from a server somewhere. 
+                    // Otherwise hardcoding here is just silly.
+                    user_data = {
+                        trial_days_left_text: "fourthy"
+                    };                
+                    // Here's all the magic.
+                    //trial_template = ich.trial_template(user_data);
+                    // append it to the list, tada! 
+                    //Now go do something more useful with this.
+                    //$('#sites').append(trial_template);
+                //});
+                $("#sites").sortable({
+                    axis: "y",
+                    container: "#sites",
+                    opacity: .5,
+                    delay: 200,
+                    items: "div.site",
+                    start: function () {
+                        $("#sites").removeClass("meld")
+                    },
+                    stop: function () {
+                        /*
+                        $.ajax({
+                            url: "/gauges/reorder",
+                            dataType: "json",
+                            type: "put",
+                            data: {
+                                ids: _.map($(this).sortable("toArray"), function (a) {
+                                    return a.replace(/^s/, "")
+                                })
+                            }
+                        }), Gauges.meldSidebar()
+                        */
+                        MyApp.meldSidebar();
+                    }
+                });
+            });
+        </script>
+        <!-- SAMMY APP -->
+        <script type="text/javascript" charset="utf-8">
+            ;(function($) {
+                
+                this.element_selector = '#main';
+                
+                var app = $.sammy(function() {
+                    
+                this.bind('newSensor', function(e, data) {
+                    alert(data['my_data']);
+                });
+                this.bind('showSite', function(e, data) {
+                    var a = this;
+                        b = $("#s" + data['my_data'].id);
+                    if (b.hasClass("current")) return !0;
+                    $("div.site.current").removeClass("current");
+                    b.addClass("current");
+                    //$("#data").html(ich.site_data_template(this)), 
+                    //$("body").addClass("view-nav");
+                    //alert(data['my_data'].id);
+                });
+                this.get('#/', function() {
+                    alert("index");
+                });
+                this.get('#/map', function() {
+                    //alert("maposi");
+                    this.trigger('newSensor', {my_data: 'EVENTED!'});
+                });
+                this.get('#/gauges/new', function() {
+                    MyApp.start(this);
+                    var user_data, user;
+                    user_data = {
+                        trial_days_left_text: "sixty-coso"
+                    };                
+                    trial_template = ich.trial_template(user_data);
+                    $('#sites').append(trial_template);
+                });
+                this.get('#/sign_out', function()
+                {
+                    var obj = {
+                        id: Math.floor(Math.random() * 99999999999999),
+                        weekend: 'test',
+                        title: 'pepe',
+                        views: '12',
+                        people: 16,
+                        overview: true,
+                        date: new Date(),
+                        last_7_days: [
+                            { views_size: '05px', people_size: '25px' },
+                            { views_size: '10px', people_size: '20px' },
+                            { views_size: '15px', people_size: '15px' },
+                            { views_size: '20px', people_size: '10px' },
+                            { views_size: '25px', people_size: '05px' },
+                            { views_size: '20px', people_size: '00px' },
+                            { views_size: '10px', people_size: '10px' },
+                            ],
+                        };
+                    $("#sites").append(ich.site_template(obj));
+                    $("#s" + obj.id).html(ich.site_preview_template(obj)); 
+                });
+                this.get("#/gauges/:id/:path", function () {
+                    //var a = Gauges.sites[this.params.id];
+                    //this.params.path == "overview" && a.setRecentTraffic(), a.trigger("show_panel.g", [this.params.path]), Gauges.meldSidebar()
+                    //alert("id: " + this.params.id + " path: " + this.params.path);
+                    this.trigger('showSite', {my_data: this.params});
+                });
+                /*
+                this.get('#/test', function() {
+                    $('#main').text('Hello World');
+                });
+                this.get("#/map", function () {
+                    //Gauges.showScreenMap()
+                    alert("map");
+                }); 
+                this.get("#/account", function () {
+                    $("body").removeClass("adding");
+                    $.ajax({
+                        url: "/account",
+                        dataType: "json",
+                        success: function (a) {
+                            //Gauges.subscription = new Subscription(a.subscription)
+                        }
+                    }); 
+                    //$("#sites div.current").removeClass("current"), 
+                    //$("#data").html(ich.account_template(Gauges.user)), 
+                    //$('div.nav a[href="#/account"]').closest("li").addClass("current"), 
+                    //$("#site_content").html(ich.my_info_template(Gauges.user))
+                });
+                */
+            });
+            $(function() {
+                app.run();
+            });
+            })(jQuery);
+        </script>        
+        <!-- SAMMY APP -->
+        <!-- MAIN OBJECT -->
+        <script type="text/javascript">        
+        var MyApp = {
+                plants: {},
+                clients: null,
+                subscription: null,
+                user: null,
+                timeout: null,
+                hit_timeout: null,
+                connection_count: 0,
+                a: 0,
+                start: function (a) {
+                    //a === 0 ? app.runRoute("get", "#/map") : window.location.hash == "#/" && (window.location.hash = "");
+                        $.ajax({
+                            url: 'http://c9-node-express-boilerplate.bmaggi.c9.io/start',
+                            type: 'GET',
+                            dataType: "json",
+                            success: function (data) {
+                                alert($.parseJSON(data.responseText))
+                            },
+                            complete: function () {
+                            
+                            },
+                            error: function () {
+                                c.removeClass("loading")
+                            }
+                        });
+                },
+                reset: function () {},
+                setUser: function (a) {
+                    //this.user = a.user, a.subscription && (this.subscription = new Subscription(a.subscription))
+                },
+                meldSidebar: function () {
+                    var a = $("#sites div.current"),
+                        b = $("#data");
+                    $(window).scrollTop() == 0 ? $("#sites").removeClass("topcut") : $("#sites").addClass("topcut"), $("#sites").height() > b.outerHeight() ? $("#sites").addClass("bottomcut") : $("#sites").removeClass("bottomcut");
+                    if (a.length > 0) {
+                        var c = a.offset().top,
+                            d = c + a.outerHeight(),
+                            e = b.offset().top,
+                            f = e + b.outerHeight(),
+                            g = a.attr("id") == $("#sites > div:first").attr("id") ? 0 : 10;
+                        a.length > 0 && c >= e + g && d < f - 10 ? $("#sites").addClass("meld") : $("#sites").removeClass("meld")
+                        }
+                },
+                newSensor: function (site) {
+                    $("#sites div.current").removeClass("current");
+                    b.addClass("current")
+                },
+                formatNumber: function (a) {
+                    a += "";
+                    var b = /(\d+)(\d{3})/;
+                    while (b.test(a)) a = a.replace(b, "$1,$2");  // ',' thousand separator
+                    return a
+                },
+                parseQueryString: function (a) {
+                    if (a.indexOf("?") == -1) return {
+                        date: "recent"
+                    };
+                    var b = {};
+                    return _.each(a.split("?")[1].split("&"), function (a) {
+                        var c = a.split("=");
+                        b[c[0]] = c[1]
+                    }), b
+                },
+                overview: function () {
+                    return {
+                        views: this.formatNumber(this.today.views),
+                        people: this.formatNumber(this.today.people)
+                    }
+                },
+            };
+        </script>
+        <!-- MAIN OBJECT -->        
+        <!-- USER SCRIPTS -->
     
         <!-- <link type="text/css" rel="stylesheet" media="all" href="css/test.css" /> -->
         <link type="text/css" rel="stylesheet" media="all" href="css/jquery-ui.css" />
@@ -20,140 +262,177 @@
     </head>
 
     <body class="loaded view-nav view-panel" style="height: 899px;">
-    	<header>
+        <!-- HEADER -->
+        <header>
 			<h1><a href="https://secure.gaug.es/dashboard">Gauges</a></h1>
-			<p><a href="https://secure.gaug.es/dashboard#/gauges/new" class="button new"><i></i> New Gauge</a></p>
+			<p><a href="#/gauges/new" class="button new"><i></i> New Gauge</a></p>
 			<ul>
-				<li><a href="https://secure.gaug.es/dashboard#/account">My Account</a></li>
-				<li><a href="https://secure.gaug.es/dashboard#" id="feedback_link" style="visibility: visible;">Feedback</a></li>
-				<li><a href="https://secure.gaug.es/dashboard#/sign_out">Sign Out</a></li>
+				<li><a href="#/account">My Account</a></li>
+				<li><a href="#" id="feedback_link" style="visibility: visible;">Feedback</a></li>
+				<li><a href="#/sign_out">Sign Out</a></li>
 				<li class="live">Live: <span class="status">on</span> <span class="indicator"><span></span></span></li>
 			</ul>
-			<a href="https://secure.gaug.es/dashboard#/map" class="button map_view">AirTraffic Live</a>
+			<a href="#/map" class="button map_view">MAP</a>
 			<a href="https://secure.gaug.es/dashboard#" class="back">Back</a>
 		</header>
+        <!-- MAIN -->
+        <div id="main"></div>
 		<div id="wrapper">
 			<div id="phone">
-				<div id="sites" class="meld" style="">
-					<div class="notice">
-						<a href="https://secure.gaug.es/dashboard#/account/plan">You have <strong>7 days</strong> remaining in your free trial. Select a plan.</a>
-					</div>
-					<div id="s50a94ac0613f5d6d7e000036" class="site current"><h2>Coso</h2>
-          	<p class="views"><strong>0</strong> views</p>
-                      <p class="people"><strong>0</strong> people</p>
-                      <div class="graph">
-                        <ul>
-                          <li data-views="0" data-people="0" data-date="November 19, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li class="weekend" data-views="0" data-people="0" data-date="November 18, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li class="weekend" data-views="0" data-people="0" data-date="November 17, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 16, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 15, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 14, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 13, 2012">
-                            <span class="views" style="height:1px;">0</span>
-                            <span class="people" style="height:1px;">0</span>
-                          </li>
-                        </ul>
-                        <a href="https://secure.gaug.es/dashboard#/gauges/50a94ac0613f5d6d7e000036/overview">View this Gauge</a>
-                      </div>
-					</div>
-					<div id="s50a94b2af5a1f5407500015f" class="site"><h2>cloud9</h2>
-                      <p class="views"><strong>10</strong> views</p>
-                      <p class="people"><strong>1</strong> people</p>
-                      <div class="graph">
-                        <ul>
-                          <li class="weekend" data-views="0" data-people="0" data-date="November 18, 2012">
-                            <span class="views" style="height:10px;">0</span>
-                            <span class="people" style="height:20px;">0</span>
-                          </li>
-                          <li class="weekend" data-views="0" data-people="0" data-date="November 17, 2012">
-                            <span class="views" style="height:20px;">0</span>
-                            <span class="people" style="height:35px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 16, 2012">
-                            <span class="views" style="height:40px;">0</span>
-                            <span class="people" style="height:10px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 15, 2012">
-                            <span class="views" style="height:40px;">0</span>
-                            <span class="people" style="height:40px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 14, 2012">
-                            <span class="views" style="height:30px;">0</span>
-                            <span class="people" style="height:10px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 13, 2012">
-                            <span class="views" style="height:40px;">0</span>
-                            <span class="people" style="height:20px;">0</span>
-                          </li>
-                          <li data-views="0" data-people="0" data-date="November 12, 2012">
-                            <span class="views" style="height:10px;">0</span>
-                            <span class="people" style="height:20px;">0</span>
-                          </li>
-                        </ul>
-                        <a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/overview">View this Gauge</a>
-                      </div>
-					</div>
+			    <div id="sites" class="meld" style="">
 				</div>
-
 				<div id="data">
 					<div id="site_nav" class="nav">
-            <h2>cloud9</h2>
-                <ul>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/overview">Overview</a></li>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/live">Live Data</a></li>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/traffic" class="traffic">Views and People</a></li>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/referrers" class="referrers">Referring Sites</a></li>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/contents" class="contents">Top Content</a></li>
-                    <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/searches" class="searches">Search Terms</a></li>
-                </ul>
-                <h2>Demographics</h2>
-                <ul>
-                    <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/locations" class="locations">GeoLocation</a></li>
-                    <li class="current"><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/technology" class="technology">Technology</a></li>
-                    <li class=""><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/resolutions" class="resolutions">Screen Sizes</a></li>
-                </ul>
-                <h2>Management</h2>
-                <ul>
-                    <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/settings">Gauge Settings</a></li>
-                    <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/sharing" class="sharing unloaded">Sharing</a></li>
-                    <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/code">Tracking Code</a></li>
-                    </ul>
-        	</div>
+                        <h2>cloud9</h2>
+                        <ul>
+                            <li class="current"><a href="#/gauges/50a94b2af5a1f5407500015f/overview">Overview</a></li>
+                            <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/live">Live Data</a></li>
+                            <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/traffic" class="traffic">Views and People</a></li>
+                            <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/referrers" class="referrers">Referring Sites</a></li>
+                            <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/contents" class="contents">Top Content</a></li>
+                            <li class=""><a href="#/gauges/50a94b2af5a1f5407500015f/searches" class="searches">Search Terms</a></li>
+                        </ul>
+                        <h2>Demographics</h2>
+                        <ul>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/locations" class="locations">GeoLocation</a></li>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/technology" class="technology">Technology</a></li>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/resolutions" class="resolutions">Screen Sizes</a></li>
+                        </ul>
+                        <h2>Management</h2>
+                        <ul>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/settings">Gauge Settings</a></li>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/sharing" class="sharing unloaded">Sharing</a></li>
+                            <li><a href="https://secure.gaug.es/dashboard#/gauges/50a94b2af5a1f5407500015f/code">Tracking Code</a></li>
+                        </ul>
+                    </div>
 				</div>
 			</div>
 		</div>
-
-      <footer>
-        <p>Copyright © 2011-2012 <a href="http://github.com/">GitHub</a> — All Rights Reserved</p>
-        <ul>
-          <li><a href="http://twitter.com/#!/gaugesapp">Twitter</a></li>
-          <li><a href="http://get.gaug.es/tos/">Terms &amp; Conditions</a></li>
-          <li><a href="http://get.gaug.es/privacy/">Privacy Policy</a></li>
-        </ul>
-      </footer>
-
-      <div id="loading" class="loading_indicator">
-        <div></div>
-        <em>Loading</em>
-      </div>
+        <!-- FOOTER -->
+        <footer>
+            <p>Copyright 2011-2012 <a href="http://github.com/">GitHub</a>All Rights Reserved</p>
+            <ul>
+                <li><a href="http://twitter.com/#!/gaugesapp">Twitter</a></li>
+                <li><a href="http://get.gaug.es/tos/">Terms &amp; Conditions</a></li>
+                <li><a href="http://get.gaug.es/privacy/">Privacy Policy</a></li>
+            </ul>
+        </footer>
+        <!-- LOADING -->
+        <div id="loading" class="loading_indicator">
+            <div></div>
+            <em>Loading</em>
+        </div>
+        <!-- TEMPLATES -->
+        <script type="text/html" id="trial_template">
+            <div class="notice">
+                <a href="#/account/plan">You have <strong>{{ trial_days_left_text }}</strong> remaining in your free trial. Select a plan.</a>
+            </div>
+        </script>
+        <script type="text/html" id="account_template">
+            <div class="nav">
+                <h2>My Account</h2>
+                <ul>
+                    <li><a href="#/account">My Profile</a></li>
+                    <li><a href="#/account/plan">Plan &amp; Billing</a></li>
+                    <li><a href="#/account/clients">API Keys</a></li>
+                    <li><a href="#/account/summaries">Email Summaries</a></li>        
+                </ul>
+                </div>
+            <div id="site_content"></div>
+        </script>
+        <script type="text/html" id="my_info_template">
+            <div class="toolbar top">My Profile Information</div>
+            <form action="#/users" method="put">
+                <input type="hidden" name="_csrf" value="" />
+                <div id="display_panel" class="display">
+                    <div class="details">
+                        <p class="text">
+                            <label for="user_email">Email</label>
+                            <input type="text" name="email" id="user_email" value="{{ email }}" />
+                        </p>
+                        <p class="text">
+                            <label for="user_first_name">First Name</label>
+                            <input type="text" name="first_name" id="user_first_name" value="{{ first_name }}" />
+                        </p>
+                        <p class="text">
+                            <label for="user_last_name">Last Name</label>
+                            <input type="text" name="last_name" id="user_last_name" value="{{ last_name }}" />
+                        </p>
+                        <div class="state">
+                            <div class="show">
+                                <p class="support"><a href="#" class="state_toggler">Change my Password</a></p>
+                            </div>
+                            <div class="edit">
+                                <p class="text">
+                                    <label for="user_password">New Password</label>
+                                    <input type="password" name="password" id="user_password" />
+                                </p>
+                            </div>
+                        </div>
+                        <p class="submit">
+                            <button><span>Save my Information</span></button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+            <div class="toolbar bottom"></div>
+        </script>
+        <script type="text/html" id="disabled_site_template">
+            <div id="s{{ id }}" class="site disabled">
+                <h2>{{ title }}</h2>
+                <p>This Gauge has been disabled.</p>
+            </div>
+        </script>
+        <script type="text/html" id="site_template">
+            <div id="s{{ id }}" class="site">
+            </div>
+        </script>
+        <script type="text/html" id="site_preview_template">
+            <h2>{{ title }}</h2>
+            {{#overview}}
+            <p class="views"><strong>{{ views }}</strong> views</p>
+            <p class="people"><strong>{{ people }}</strong> people</p>
+            {{/overview}}
+            <div class="graph">
+                <ul>
+                    {{#last_7_days}}
+                    <li {{#weekend}} class="weekend"{{/weekend}} data-views="{{views}}" data-people="{{people}}" data-date="{{date}}">
+                    <span class="views" style="height:{{views_size}};">{{views}}</span>
+                    <span class="people" style="height:{{people_size}};">{{people}}</span>
+                    </li>
+                    {{/last_7_days}}
+                </ul>
+                <a href="#/gauges/{{id}}{{^iphone}}/overview{{/iphone}}">View this Gauge</a>
+            </div>
+        </script>
+        <script id="site_data_template" type="text/html">
+          <div id="site_nav" class="nav">
+            <h2>{{title}}</h2>
+            <ul>
+              <li><a href="#/gauges/{{ id }}/overview">Overview</a></li>
+              <li><a href="#/gauges/{{ id }}/live">Live Data</a></li>
+              <li><a href="#/gauges/{{ id }}/traffic" class="traffic">Views and People</a></li>
+              <li><a href="#/gauges/{{ id }}/referrers" class="referrers">Referring Sites</a></li>
+              <li><a href="#/gauges/{{ id }}/contents" class="contents">Top Content</a></li>
+              <li><a href="#/gauges/{{ id }}/searches" class="searches">Search Terms</a></li>
+            </ul>
+            <h2>Demographics</h2>
+            <ul>
+              <li><a href="#/gauges/{{ id }}/locations" class="locations">GeoLocation</a></li>
+              <li><a href="#/gauges/{{ id }}/technology" class="technology">Technology</a></li>
+              <li><a href="#/gauges/{{ id }}/resolutions" class="resolutions">Screen Sizes</a></li>
+            </ul>
+            <h2>Management</h2>
+            <ul>
+              {{#mine}}
+              <li><a href="#/gauges/{{ id }}/settings">Gauge Settings</a></li>
+              <li><a href="#/gauges/{{ id }}/sharing" class="sharing unloaded">Sharing</a></li>
+              {{/mine}}
+              <li><a href="#/gauges/{{ id }}/code">Tracking Code</a></li>
+            </ul>
+          </div>
+          <div id="site_content"></div>
+        </script>
+        <!-- TEMPLATES -->
     </body>
 </html>

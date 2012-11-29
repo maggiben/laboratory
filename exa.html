@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>  </title>
+
+</head>
+
+<body>
+
+<select id="iframeList" style="width: 100px">
+        <option>Cell 1</option>
+        <option>Cell 2</option>
+        <option>Cell 3</option>
+        <option>Cell 4</option>
+</select>
+<input type="button" value="Create" onclick="create()">
+<br><br>
+
+<table style="width: 1024px" cellspacing="10">
+        <tr>
+                <td><iframe style="width: 100%; height: 250px; border: 1px solid gray" frameborder="0"></iframe></td>
+                <td><div style="width: 100%; height: 250px; border: 1px solid gray"></div></td>
+        </tr>
+        <tr>
+                <td><div style="width: 100%; height: 250px; border: 1px solid gray"></div></td>
+                <td><iframe style="width: 100%; height: 250px; border: 1px solid gray" frameborder="0"></iframe></td>
+        </tr>
+</table>
+<script type="text/javascript">
+var create = function()
+{
+        var tds = document.getElementsByTagName("td");
+        var select = document.getElementById("iframeList");
+        createControl(tds[select.selectedIndex].firstChild);
+}
+</script>
+
+<script type="text/javascript">
+
+// ESCRIBA EL CODIGO EN ESTE SCRIPT
+
+var createControl = function(node)
+{
+    // undo/redo stack
+    var a = [];
+    var bt = function(n, f) {
+        b = document.createElement('input');
+        b.setAttribute('type', 'button');
+        b.setAttribute('value', n); 
+        b.onclick = f;
+        return b;
+    }
+    c = document.createElement('div');
+    s = c.style
+        s.backgroundColor = 'silver';
+        s.width = '90%';
+        s.padding = '10px';
+        s.margin = '10px';
+        s.border = '1px solid black';
+        s.textAlign = 'center';
+        
+    c.appendChild(bt("Set Red Color", function(){
+        var bg = this.parentNode.style.backgroundColor;
+        if(bg == 'red')
+            return;
+        a.push(bg);
+        this.parentNode.style.backgroundColor = 'red';
+    }));
+    c.appendChild(bt("Set Blue Color", function(){
+        var bg = this.parentNode.style.backgroundColor;
+        if(bg == 'blue')
+            return;
+        a.push(bg);
+        this.parentNode.style.backgroundColor = 'blue';
+    }));
+    c.appendChild(bt("Back Color", function(){
+        if(a.length > 0)
+            this.parentNode.style.backgroundColor = a.pop();
+        return;
+        // Otro método que cumple con los requerimientos:
+        this.parentNode.style.backgroundColor = ((x = a.pop()) == null) ? 'silver' : x;
+    }));
+    c.appendChild(bt("Close", function(){
+        var n = this.parentNode;
+        setTimeout(function(){ 
+            n.parentNode.removeChild(n); 
+        }, 1000);
+    }));
+    // Habiendo solo 2 tipos de contenedores DIV|IFRAME quiza un switch pareza injustificado
+    switch(node.tagName)
+    {
+        case "IFRAME":
+            node.contentWindow.document.body.appendChild(c);
+            break;
+        case "DIV":
+            node.appendChild(c);
+            break;    
+    }
+}
+
+
+</script>
+
+</body>
+</html>

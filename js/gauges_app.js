@@ -10647,8 +10647,13 @@ var gauges = $.sammy(function () {
             success: function (a) {
                 Gauges.subscription = new Subscription(a.subscription)
             }
-        }), $("#sites div.current").removeClass("current"), $("#data").html(ich.account_template(Gauges.user)), $('div.nav a[href="#/account"]').closest("li").addClass("current"), $("#site_content").html(ich.my_info_template(Gauges.user))
-    }), this.get("#/account/plan", function () {
+        }), 
+        $("#sites div.current").removeClass("current"), 
+        $("#data").html(ich.account_template(Gauges.user)), 
+        $('div.nav a[href="#/account"]').closest("li").addClass("current"), 
+        $("#site_content").html(ich.my_info_template(Gauges.user))
+    }), 
+    this.get("#/account/plan", function () {
         $("body").removeClass("adding"), $("#sites div.current").removeClass("current"), $("#data").html(ich.account_template(Gauges.user)), $('div.nav a[href="#/account/plan"]').closest("li").addClass("current"), $("#site_content").html(ich.plan_template(Gauges.subscription))
     }), this.get("#/account/clients", function () {
         $("body").removeClass("adding"), $("#sites div.current").removeClass("current"), $("#data").html(ich.account_template(Gauges.user)), $('div.nav a[href="#/account/clients"]').closest("li").addClass("current"), $("#site_content").html(ich.clients_template(Gauges.user)), $("#site_content").find("input[title]").labelize(), Gauges.clients == null ? $.ajax({
