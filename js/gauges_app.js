@@ -10500,7 +10500,8 @@ var gauges = $.sammy(function () {
         this.redirect("#", "gauges", this.params.splat)
     }), this.get("#/", function (a) {
         $("body").removeClass("no_cancel").removeClass("my_account"), Gauges.hideScreenMap(), $.trim($("#data").html()) == "" && $("#sites div.site:first a").length > 0 && a.redirect($("#sites div.site:first a").attr("href"))
-    }), this.get("#/deleting", function () {}), this.get("#/sign_out", function () {
+    }), this.get("#/deleting", function () {}), 
+    this.get("#/sign_out", function () {
         $.ajax({
             url: "/authenticate",
             type: "DELETE",
